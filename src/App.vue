@@ -40,6 +40,7 @@ function reset() {
 	hit.value = 0
 	total.value = 0
 	percentage.value = 0
+	history.value = ""
 }
 </script>
 
