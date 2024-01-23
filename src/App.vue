@@ -21,19 +21,23 @@ function miss() {
 	percentageCalc()
 }
 function percentageCalc() {
-	console.log(hit.value / total.value)
-	percentage.value = ((hit.value / total.value) * 100).toFixed(2).replace(/[.,]00$/, "");
-	console.log(history.value)
+	if (total.value > 0) {
+		console.log('p', hit.value / total.value)
+		percentage.value = ((hit.value / total.value) * 100).toFixed(2).replace(/[.,]00$/, "");
+	} else {
+		percentage.value = 0
+	}
 }
 function undo() {
 	let action = history.value.slice(-1)
+	console.log(action)
 	history.value = history.value.slice(0, -1)
 	if (action == '+') {
 		hit.value--
 		total.value--
-	} else {
+	} else if (action == "-") {
 		total.value--
-	}
+	} else {}
 	percentageCalc()
 }
 function reset() {
