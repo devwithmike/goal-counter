@@ -14,10 +14,9 @@ onMounted(() => {
 		history.value = offline.history
 		streak.value = offline.streak
 		hstreak.value = offline.hstreak
+		currentStreak.value = offline.currentStreak
 	}
 })
-
-// TODO: Undo not working for highest streak
 
 const hit = ref(0)
 const total = ref(0)
@@ -25,6 +24,7 @@ const percentage = ref(0)
 const history = ref("")
 const streak = ref(0)
 const hstreak = ref(0)
+const currentStreak = ref(false)
 
 function goal() {
 	hit.value++
@@ -32,6 +32,9 @@ function goal() {
 	streak.value++
 	if (streak.value > hstreak.value) {
 		hstreak.value = streak.value
+		if (!currentStreak.value) {
+			currentStreak.value = true
+		}
 	}
 	history.value = history.value.concat("+")
 	percentageCalc()
@@ -42,6 +45,9 @@ function miss() {
 	streak.value = 0
 	total.value++
 	history.value = history.value.concat("-")
+	if (currentStreak.value) {
+		currentStreak.value = false
+	}
 	percentageCalc()
 	setOffline()
 }
@@ -62,6 +68,9 @@ function undo() {
 		total.value--
 	} else { }
 	resetStreak()
+	if (currentStreak.value) {
+		hstreak.value--
+	}
 	percentageCalc()
 	setOffline()
 }
@@ -99,14 +108,10 @@ function setOffline() {
 		percentage: percentage.value,
 		history: history.value,
 		streak: streak.value,
-		hstreak: hstreak.value
+		hstreak: hstreak.value,
+		currentStreak: currentStreak.value
 	}
 	localStorage.setItem('offline', JSON.stringify(offlineObj))
-}
-
-function setHighestStreak() {
-	hstreak.value = prompt("What should the highest streak be:", hstreak.value)
-	setOffline()
 }
 </script>
 
@@ -119,7 +124,7 @@ function setHighestStreak() {
 			<span class="text-4xl">{{ total }}</span>
 		</div>
 		<p class="mt-10 text-xl">Current Streak: {{ streak }}</p>
-		<p class="mt-10 text-xl" @dblclick="setHighestStreak">Highest Streak: {{ hstreak }}</p>
+		<p class="mt-10 text-xl">Highest Streak: {{ hstreak }}</p>
 	</div>
 	<div class="p-10 m-auto max-w-80">
 		<div class="grid grid-cols-2 gap-5">
