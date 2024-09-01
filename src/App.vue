@@ -21,7 +21,7 @@ function setPlayer(bool) {
 </script>
 
 <template>
-	<div class="mx-auto mt-5">
+	<div class="mx-auto my-5">
 		<div class="block">
 			<nav class="flex justify-center p-4 space-x-4">
 				<button :class="{'bg-gray-900 text-white': player}" class="p-2 border-2 border-gray-900 rounded" @click="setPlayer(true)">1 Player</button>
