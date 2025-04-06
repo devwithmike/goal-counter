@@ -152,11 +152,21 @@ function cancelOverrideScore() {
 async function share() {
 	try {
 		let cs = currentStreak.value ? 1 : 0
-		await navigator.share({
-			title: 'Goal Counter',
-			text: 'Here is my current score. Have a look.',
-			url: `${window.location.href}?g=${hit.value}&t=${total.value}&h=${convertToBinary(history.value)}&s=${streak.value}&hs=${hstreak.value}&cs=${cs}`
-		})
+		let h = convertToBinary(history.value)
+
+		if (h != "") {
+			await navigator.share({
+				title: 'Goal Counter',
+				text: 'Here is my current score. Have a look.',
+				url: `${window.location.href}?g=${hit.value}&t=${total.value}&h=${h}&s=${streak.value}&hs=${hstreak.value}&cs=${cs}`
+			})
+		} else {
+			await navigator.share({
+				title: 'Goal Counter',
+				text: 'Here is my current score. Have a look.',
+				url: `${window.location.href}`
+			})
+		}
 	} catch (err) {
 		alert("There was a problem sharing. Please try again.")
 	}
