@@ -163,7 +163,7 @@ async function share() {
 		} else {
 			await navigator.share({
 				title: 'Goal Counter',
-				text: 'Here is my current score. Have a look.',
+				text: 'Keep track of your goal score using this app 🏀  ',
 				url: `${window.location.href}`
 			})
 		}
