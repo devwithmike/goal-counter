@@ -5,9 +5,12 @@ import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { convertToBinary, convertFromBinary } from '../utils/history.js'
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { useRouter, useRoute } from 'vue-router'
 
 const queryParams = ref({})
 const open = ref(false)
+const router = useRouter()
+const route = useRoute()
 
 onMounted(() => {
 	let offlineObj = localStorage.getItem('offline')
@@ -138,7 +141,12 @@ function overrideScore() {
 	currentStreak.value = queryParams.value.cs
 	open.value = false
 	setOffline()
-	console.log(history.value)
+	router.replace({ path: route.path })
+}
+
+function cancelOverrideScore() {
+	open.value = false
+	router.replace({ path: route.path })
 }
 
 async function share() {
