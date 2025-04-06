@@ -185,23 +185,26 @@ async function share() {
 		<p class="mt-10 text-xl">Highest Streak: {{ hstreak }}</p>
 	</div>
 	<div class="p-10 m-auto max-w-80">
-		<div class="grid grid-cols-2 gap-5">
-			<Button @click="goal" class="flex items-center justify-center aspect-square">
+		<div class="grid grid-cols-6 gap-5">
+			<Button @click="goal" class="flex items-center justify-center col-span-3 aspect-square">
 				<PlusIcon class="w-6 h-6" />
 			</Button>
-			<Button @click="miss" class="flex items-center justify-center aspect-square">
+			<Button @click="miss" class="flex items-center justify-center col-span-3 aspect-square">
 				<MinusIcon class="w-6 h-6" />
 			</Button>
-			<Button @click="reset" class="flex items-center justify-center aspect-square">
+			<Button @click="reset" class="flex items-center justify-center col-span-3 aspect-square">
 				<ArrowPathIcon class="w-6 h-6" />
 			</Button>
-			<Button @click="undo" class="flex items-center justify-center aspect-square">
+			<Button @click="undo" class="flex items-center justify-center col-span-3 aspect-square">
 				<ArrowUturnLeftIcon class="w-6 h-6" />
 			</Button>
-			<Button @click="share" class="flex items-center justify-center col-span-2 gap-5 py-3">
+			<Button @click="share" class="flex items-center justify-center col-span-4 gap-3 py-3">
 				<ShareIcon class="w-6 h-6" />
-				<p>Share Score</p>
+				<p>Share</p>
 			</Button>
+			<a href="https://buymeacoffee.com/withmike" target="_blank" class="flex items-center justify-center col-span-2 gap-5 p-2 border-2 rounded-md border-slate-900">
+				<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExODhqMGx6bWF2ZGhiY3JhNWYyOGcwdjJkamdocTJyaGZubzZxYmw0bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/TDQOtnWgsBx99cNoyH/giphy.gif" />
+			</a>
 		</div>
 	</div>
 
