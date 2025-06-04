@@ -24,6 +24,8 @@ function addPlayer() {
 			hit: 0,
 			total: 0,
 			streak: 0,
+			hstreak: 0,
+			current: false,
 			history: ""
 		})
 	}
@@ -42,6 +44,12 @@ function goal(index) {
 	players.value[index].hit++
 	players.value[index].total++
 	players.value[index].streak++
+	if (players.value[index].streak > players.value[index].hstreak) {
+		players.value[index].hstreak = players.value[index].streak
+		if (!players.value[index].current) {
+			players.value[index].current = true
+		}
+	}
 	players.value[index].history = players.value[index].history.concat("+")
 	sequence.value = sequence.value.concat(index)
 	setOffline()
@@ -52,6 +60,9 @@ function miss(index) {
 	players.value[index].total++
 	players.value[index].history = players.value[index].history.concat("-")
 	sequence.value = sequence.value.concat(index)
+	if (players.value[index].current) {
+		players.value[index].current = false
+	}
 	setOffline()
 }
 
@@ -88,6 +99,9 @@ function undo() {
 	} else {
 		players.value[index].streak = 0
 	}
+	if (players.value[index].current && players.value[index].hstreak != 0) {
+		players.value[index].hstreak--
+	}
 	setOffline()
 }
 
@@ -108,7 +122,7 @@ function setOffline() {
 				<div class="flex justify-start gap-4 mt-3">
 					<div class="flex items-center justify-center gap-2"><ScaleIcon class="w-6 h-6" />{{ player.hit }}/{{ player.total }}</div>
 					<div class="flex items-center justify-center gap-2"><ChartPieIcon class="w-6 h-6" />{{ (((player.hit / player.total) * 100) || 0).toFixed(2).replace(/[.,]00$/, "") }}%</div>
-					<div class="flex items-center justify-center gap-2"><SparklesIcon class="w-6 h-6" />{{ player.streak }}</div>
+					<div class="flex items-center justify-center gap-2"><SparklesIcon class="w-6 h-6" />{{ player.hstreak }}</div>
 				</div>
 			</div>
 			<div class="flex items-center justify-center gap-2 ml-2">
